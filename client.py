@@ -19,7 +19,7 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 from esa.srv import rgbd
 from std_msgs.msg import Int32MultiArray
-
+from mpl_toolkits.mplot3d import Axes3D  
 
 def _load_img(fp):
     img = cv2.imread(fp, cv2.IMREAD_UNCHANGED)
@@ -47,8 +47,9 @@ if __name__ == '__main__':
             #竟然是np.ndarray类型返回值
             print(img_rgb)
             img_depth = _load_img(fp_depth).astype("float32")
+
             depth_height,depth_width=img_depth.shape
-            print(img_depth)
+            
             rgb=bridge.cv2_to_imgmsg(img_rgb)
             d=img_depth.flatten()
             t0=time.time()
@@ -66,10 +67,32 @@ if __name__ == '__main__':
             axs[0].imshow(img_rgb)
             axs[1].imshow(img_depth, cmap='gray')
             axs[2].imshow(pred_mask,cmap='gray')
+            
             plt.suptitle(f"Image: ({os.path.basename(fp_rgb)}, "
                         f"{os.path.basename(fp_depth)})")
+            fig = plt.figure()
+            ax = fig.add_subplot(111, projection='3d')
+
+            dict={0:'m',1:'y',4:'b',5:'g',6:'r',7:'w',8:'c'}
+            for c in [0,1,4,5,6,7,8]:
+                xs=np.array([])
+                ys=np.array([])
+                zs=np.array([])
+                for i in range(320):
+                    for j in range(180):
+                            if pred_mask[j][i] == int(c):
+                                if img_depth[j][i] >0.0 and img_depth[j][i] <10000.0:
+                                    xs=np.append(xs,i)
+                                    zs=np.append(zs,180-1-j)
+                                    ys=np.append(ys,img_depth[j][i])
+                ax.scatter(xs, ys, zs, c=dict[c], marker='.',alpha=0.5)      
+
+            #todo 可以做散点，体素渲染太慢了
+            ax.set_xlabel('X Label')
+            ax.set_ylabel('Y Label')
+            ax.set_zlabel('Z Label')
             plt.show()
-            
+
         except rospy.ServiceException as e:
             print ("Service call failed,",e)
     
