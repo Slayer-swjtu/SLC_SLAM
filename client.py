@@ -74,7 +74,7 @@ if __name__ == '__main__':
             ax = fig.add_subplot(111, projection='3d')
 
             dict={0:'m',1:'y',4:'b',5:'g',6:'r',7:'w',8:'c'}
-            for c in [0,1,4,5,6,7,8]:
+            for c in dict.keys():
                 xs=np.array([])
                 ys=np.array([])
                 zs=np.array([])
