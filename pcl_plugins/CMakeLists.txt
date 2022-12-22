@@ -122,6 +122,38 @@ target_link_libraries(convert  ${PCL_LIBRARIES}   ${OpenCV_LIBS}
 /usr/lib/x86_64-linux-gnu/libvtkCommonMath-6.3.so.6.3
 )
 
+add_executable(ransac  src/ransac.cpp)
+target_link_libraries(ransac  ${PCL_LIBRARIES}  
+/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.65.1
+/usr/lib/x86_64-linux-gnu/libvtkCommonDataModel-6.3.so.6.3
+/usr/lib/x86_64-linux-gnu/libvtkCommonCore-6.3.so.6.3
+/usr/lib/x86_64-linux-gnu/libvtkRenderingFreeTypeFontConfig-6.3.so.6.3
+/usr/lib/x86_64-linux-gnu/libvtkRenderingMatplotlib-6.3.so.6.3
+/usr/lib/x86_64-linux-gnu/libvtkRenderingOpenGL-6.3.so.6.3
+/usr/lib/x86_64-linux-gnu/libvtkInteractionStyle-6.3.so.6.3
+/usr/lib/x86_64-linux-gnu/libvtkRenderingFreeType-6.3.so.6.3
+/usr/lib/x86_64-linux-gnu/libvtkRenderingCore-6.3.so.6.3
+/usr/lib/x86_64-linux-gnu/libvtkCommonMath-6.3.so.6.3
+)
+
+add_executable(icp  src/icp.cpp)
+target_link_libraries(icp  ${PCL_LIBRARIES}  
+/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.65.1
+/usr/lib/x86_64-linux-gnu/libvtkCommonDataModel-6.3.so.6.3
+/usr/lib/x86_64-linux-gnu/libvtkCommonCore-6.3.so.6.3
+/usr/lib/x86_64-linux-gnu/libvtkRenderingFreeTypeFontConfig-6.3.so.6.3
+/usr/lib/x86_64-linux-gnu/libvtkRenderingMatplotlib-6.3.so.6.3
+/usr/lib/x86_64-linux-gnu/libvtkRenderingOpenGL-6.3.so.6.3
+/usr/lib/x86_64-linux-gnu/libvtkInteractionStyle-6.3.so.6.3
+/usr/lib/x86_64-linux-gnu/libvtkRenderingFreeType-6.3.so.6.3
+/usr/lib/x86_64-linux-gnu/libvtkRenderingCore-6.3.so.6.3
+/usr/lib/x86_64-linux-gnu/libvtkCommonMath-6.3.so.6.3
+)
+
+add_executable(line  src/line_detect.cpp)
+target_link_libraries(line   ${OpenCV_LIBS}
+)
+
 # set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Examples/Stereo)
 
 # add_executable(stereo_kitti
